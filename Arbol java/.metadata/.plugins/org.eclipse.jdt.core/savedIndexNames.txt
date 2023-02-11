@@ -1,0 +1,3 @@
+INDEX VERSION 1.131+C:\Users\Gamer 1\Desktop\IA\Arbol java\.metadata\.plugins\org.eclipse.jdt.core
+3129445260.index
+3417291469.index
