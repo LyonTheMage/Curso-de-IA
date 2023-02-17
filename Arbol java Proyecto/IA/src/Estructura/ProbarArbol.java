@@ -15,6 +15,7 @@ public class ProbarArbol {
 		arbol.insertarNodo("d");
 		
 		
+		System.out.println(arbol.BuscarNodo("a"));
 		System.out.println(arbol.ImprimirArbolInOrden());
 		
 		Leer.close();
