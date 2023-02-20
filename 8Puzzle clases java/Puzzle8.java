@@ -15,13 +15,7 @@ public class Puzzle8 {
         a.busquedaPorAnchura();
         // System.out.println("BUSQUEDA POR PROFUNDIDAD...");
         //a.busquedaPorProfundidad();
-        //Imprime movimientos
-        
-        /*
-        Nodo n = new Nodo(estadoInicial);
-        Collection<String> c = n.generaHijos();
-        c = c;
-        */
+     
     }
     
 }

@@ -9,10 +9,6 @@ import java.util.Stack;
 
 
 
-/**
- *
- * @author Mario R�os
- */
 public class ArbolBusqueda {
     
     Nodo raiz;
@@ -34,7 +30,7 @@ public class ArbolBusqueda {
         {
             estadosVisitados.add(nodoActual.getEstado());
             //Generar a los Nodos Hijos
-            Collection<String> hijos = nodoActual.generaHijos();	//<-- Cada Equipo tiene que ingeniarselas para crear este metodo!
+            Collection<String> hijos = nodoActual.generaHijos();
             for (String hijo : hijos) {
                 if(!estadosVisitados.contains(hijo))
                 {
@@ -63,7 +59,7 @@ public class ArbolBusqueda {
         {
             estadosVisitados.add(nodoActual.getEstado());
             //Generar a los Nodos Hijos
-            Collection<String> hijos = nodoActual.generaHijos();	//<-- Cada Equipo tiene que ingeniarselas para crear este metodo!
+            Collection<String> hijos = nodoActual.generaHijos();	
             for (String hijo : hijos) {
                 if(!estadosVisitados.contains(hijo))
                 {
