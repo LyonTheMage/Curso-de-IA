@@ -1,5 +1,5 @@
 
-package puzzle8;
+package puzzle;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -160,37 +160,44 @@ public class Nodo {
             	hijosGenerados.add(estadoTemp);
             	break;
        }
-        
-        
         return hijosGenerados;
     }
     
     
-    public String imprimeSolucion() {
-    	String Solucion = "";
-    	return imprimeSolucion(Solucion);
-    }
-    
-    public String imprimeSolucion(String Solucion)
-    {
-    	if(this.padre != null) {
-    		Solucion = padre.imprimeSolucion(estado+"\n"+Solucion);
-    	}else {
-    		Solucion = this.estado +"\n"+ Solucion;
-    	}
-    	return Solucion;
-    }
+
     
   public String imprimeSolucion(Nodo nodoActual,Nodo raiz) {
-	   String solucion = nodoActual.getEstado();
+	   String solucion = EstructuraTexto(nodoActual.getEstado());
        Nodo imp = nodoActual;
+ 
 	   do {
-        	imp = imp.getPadre();
-           solucion = imp.getEstado()+"\n"+solucion;
+		   imp = imp.getPadre();
+		   solucion = EstructuraTexto(imp.getEstado())+"\n"+solucion;
        }while(imp != raiz);
 	   return solucion;
 	  
   }
+  public String EstructuraTexto(String estado) {
+	  
+	 String regreso = "";
+	 int contador = 0;
+	  for(int i = 0; i < estado.length(); i++) {
+		  contador++;
+		  switch (contador) {
+		  case 1: regreso = regreso+String.valueOf(estado.charAt(i)); break;
+		  case 2: regreso = regreso+"|"+String.valueOf(estado.charAt(i)); break;
+		  case 3: regreso = regreso+"|"+String.valueOf(estado.charAt(i))+"\n"; contador = 0; break;
+		  }
+	  }
+	  return regreso;
+  }
     
-    
+
+  
+  
+  
+
+
+
+
 }

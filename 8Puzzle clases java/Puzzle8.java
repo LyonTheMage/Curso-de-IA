@@ -1,21 +1,67 @@
-package puzzle8;
+package puzzle;
 
-import java.util.Collection;
+import java.util.Scanner;
 
 public class Puzzle8 {
 
-    public static String estadoInicial = "12578 346";
+    public static String estadoInicialEasy = "123456 78";
+    public static String estadoInicialHard = "2465 7813";
     public static String estadoFinal = "12345678 ";
+    private static Scanner Leer;
     
     public static void main(String[] args) {
-        //Instanciar el arbol
-        ArbolBusqueda a = new ArbolBusqueda(new Nodo(estadoInicial), estadoFinal);
-        //Ejecuta la busqueda
-        System.out.println("BUSQUEDA POR ANCHURA...");
-        a.busquedaPorAnchura();
-        // System.out.println("BUSQUEDA POR PROFUNDIDAD...");
-        //a.busquedaPorProfundidad();
-     
+    	Leer = new Scanner(System.in);
+
+        int opcion = 0;
+        do {
+         	System.out.println("-- Escoja raiz:");
+        	System.out.println("-- 1 Easy 1234567 8");
+        	System.out.println("-- 2 Hard 234 56718");
+        	System.out.println("-- -1 para terminar prog");
+        	int raizOp = Leer.nextInt();
+        	switch (raizOp) {
+        	case 1: opcion = menu(estadoInicialEasy); break;
+        	case 2: opcion = menu(estadoInicialHard); break;
+        	case -1: return;
+        	default: System.out.println("opcion no valida");
+        	}
+        }while(opcion >= 0);
+        
+        Leer.close();
     }
+    
+    private static int menu(String estado) {
+
+    	ArbolBusqueda a = new ArbolBusqueda(new Nodo(estado), estadoFinal);
+    	
+    	
+    	System.out.println("-- Metodo de busqueda");
+    	System.out.println("-- 1 Anchura");
+    	System.out.println("-- 2 Profundidad");
+      	System.out.print("Opcion : ");
+    	int opcion = Leer.nextInt();
+    	
+    	switch (opcion) {
+    	case 1: 
+    		System.out.println("-- Heuristica --");
+    		System.out.println("-- 1 Cantidad espacios Correctos");
+    		System.out.println("-- 2 Diferencia");
+    		System.out.println("-- 3 Distancia Manhatan");
+    	   	System.out.print("Opcion : ");
+    		a.busquedaPorAnchura(Leer.nextInt()); 
+    		break;
+    	case 2: 
+    		a.busquedaPorProfundidad(); 
+    		break;
+    		
+    	case -1: break;
+    	default: System.out.println("Opcion no valida");
+    	}
+    	return opcion;
+    }
+    
+    
+    
+    
     
 }
