@@ -2,10 +2,12 @@ package puzzle;
 
 import java.util.Scanner;
 
+
+
 public class Puzzle8 {
 
     public static String estadoInicialEasy = "123456 78";
-    public static String estadoInicialHard = "2465 7813";
+    public static String estadoInicialHard = "234 56718";
     public static String estadoFinal = "12345678 ";
     private static Scanner Leer;
     
@@ -45,10 +47,12 @@ public class Puzzle8 {
     	case 1: 
     		System.out.println("-- Heuristica --");
     		System.out.println("-- 1 Cantidad espacios Correctos");
-    		System.out.println("-- 2 Diferencia");
+    		System.out.println("-- 2 Diferencia de los valores");
     		System.out.println("-- 3 Distancia Manhatan");
+    		System.out.println("-- 4 Tabla Comparativa");
+    		System.out.println("-- 5 Sin Heuristica");
     	   	System.out.print("Opcion : ");
-    		a.busquedaPorAnchura(Leer.nextInt()); 
+    		System.out.println(a.busquedaPorAnchura(Leer.nextInt()));
     		break;
     	case 2: 
     		a.busquedaPorProfundidad(); 

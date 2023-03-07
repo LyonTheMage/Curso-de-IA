@@ -10,11 +10,11 @@ import java.util.Queue;
 import java.util.Stack;
 
 
-
 public class ArbolBusqueda {
     
     Nodo raiz;
     String objetivo;
+    int contador = 0;
     
     public ArbolBusqueda(Nodo raiz, String objetivo)
     {
@@ -22,13 +22,79 @@ public class ArbolBusqueda {
         this.objetivo = objetivo;
     }
     
+    
+    public String busquedaPorAnchura(int opcion) {
+    	if(opcion < 4) {
+    		return busquedaPorAnchuraH(opcion);
+    	}else if (opcion == 4){
+    		System.out.println("\nSe buscara el resultado Sin y con Todas las Heuristicas");
+    		System.out.println("Esto podria tardar...");
+    		int Contador0 = 0,Contador1 = 0,Contador2 = 0,Contador3 = 0;
+    		busquedaPorAnchura();
+    		Contador0 = contador;
+    
+    		busquedaPorAnchuraH(1);
+    		Contador1 = contador;
+    	
+    		busquedaPorAnchuraH(2);
+    		Contador2 = contador;
+    
+    		busquedaPorAnchuraH(3);
+    		Contador3 = contador;
+    		
+    	
+    		String Tabla = "\nel metodo sin Heuristica\n"+
+    					   "entro "+Contador0+" al ciclo de busqueda\n\n"+
+    					   "el metodo con Heuristica 1  Cantidad espacios Correctos\n"+
+    					   "entro "+Contador1+" al ciclo de busqueda\n\\"+
+    					   "el metodo con Heuristica 2 Diferencia de los valores\n"+
+    					   "entro "+Contador2+" al ciclo de busqueda\n\n"+
+    					   "el metodo con Heuristica 3 Distancia Manhatan\n"+
+    					   "entro "+Contador3+" al ciclo de busqueda\n\n";
+    	
+    		return Tabla;
+    	}else if(opcion == 5) {
+    		return busquedaPorAnchura();
+    	}else
+    		return "opcion no valida";
+    }
+    
     //Busqueda por Anchura
-    public void busquedaPorAnchura(int opcion)
+    public String busquedaPorAnchura()
+    {
+        Nodo nodoActual = raiz;
+        Collection<String> estadosVisitados = new ArrayList<String>();
+        contador = 0;
+        Queue<Nodo> estadosPorVisitar = new LinkedList();
+        while(!nodoActual.getEstado().equals(objetivo))
+        {
+        	contador++;
+            estadosVisitados.add(nodoActual.getEstado());
+            //Generar a los Nodos Hijos
+            Collection<String> hijos = nodoActual.generaHijos();	//<-- Cada Equipo tiene que ingeniarselas para crear este metodo!
+            for (String hijo : hijos) {
+                if(!estadosVisitados.contains(hijo))
+                {
+                    //System.out.println("---Metiendo nuevo Nodo");
+                    //Crear nuevo Nodo.
+                    Nodo nHijo = new Nodo(hijo);
+                    nHijo.setPadre(nodoActual);
+                    estadosPorVisitar.add(nHijo);
+                }
+            }
+            nodoActual = estadosPorVisitar.poll();
+        }
+      
+        return "YA SE ENCONTRO EL NODO OBJETIVO\n"+nodoActual.imprimeSolucion(nodoActual,raiz)
+        +"\nCantidad de veces que se entro al ciclo de busqueda "+contador;
+        
+    }
+    public String busquedaPorAnchuraH(int opcion)
     {
         Nodo nodoActual = raiz;
         Collection<String> estadosVisitados = new ArrayList<String>();
         PriorityQueue<Nodo> estadosPorVisitar = new PriorityQueue<Nodo>(EscojeHeuristica(opcion));
-        int contador = 0;
+        contador = 0;
         //Queue<Nodo> estadosPorVisitar = new LinkedList();
         while(!nodoActual.getEstado().equals(objetivo))
         {
@@ -48,9 +114,8 @@ public class ArbolBusqueda {
             }
             nodoActual = estadosPorVisitar.poll();
         }
-        System.out.println("YA SE ENCONTRO EL NODO OBJETIVO");
-        System.out.println(nodoActual.imprimeSolucion(nodoActual,raiz));
-        System.out.println("Cantidad de veces que se entro al ciclo de busqueda "+contador);
+        return "YA SE ENCONTRO EL NODO OBJETIVO\n"+nodoActual.imprimeSolucion(nodoActual,raiz)
+        +"\nCantidad de veces que se entro al ciclo de busqueda "+contador;
         
     }
     //Busqueda por Profundidad
