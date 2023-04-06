@@ -1,0 +1,44 @@
+FUNCTION_BLOCK pontencia
+	(*Cardenas Perez/Ruiz Lizarraga)
+	VAR_INPUT
+		fuerza:REAL;
+		angulo:REAL;
+	END_VAR
+	VAR_OUTPUT
+		distancia:REAL;
+	END_VAR
+	(*Corrdenadas de los valores*)
+	FUZZIFY fuerza
+		TERM poca:= (1,1) (4,0);
+		TERM perfecto:= (5,0) (6,1) (7,0);
+		TERM masomenos:= (3,0) (6,1) (9,0);
+		TERM mucha:=  (8,0) (12,1);
+	END_FUZZIFY
+
+	FUZZIFY angulo
+		TERM bajo:= (1,1) (4,0);
+		TERM perfecto:= (5,0) (6,1) (7,0);
+		TERM medio:= (3,0) (6,1) (9,0);
+		TERM alto:= (8,0) (12,1);
+	END_FUZZIFY
+	(*salida*)
+	DEFUZZIFY distancia
+		TERM nollego:= (1,1) (3,0);
+		TERM cercas:= (3,0) (4,1) (5,0);
+		TERM llego:= (5,0) (6,1) (7,1) (8,0);
+		TERM sePaso:= (8,0) (12,1);
+	END_DEFUZZIFY
+	(*REGLAS*)
+	RULEBLOCK distancia
+		RULE 1:IF(fuerza IS perfecto) AND (angulo IS perfecto) then distancia IS llego;
+		RULE 2:IF(fuerza IS masomenos) AND (angulo IS perfecto) then distancia IS llego;
+		RULE 3:IF(fuerza IS perfecto) AND (angulo IS medio) then distancia IS llego;
+		RULE 4:IF(fuerza IS  masomenos) AND (angulo IS medio) then distancia IS cercas;
+    	RULE 6:IF(fuerza IS  poca) AND (angulo IS bajo) then distancia IS  nollego;
+    	RULE 7:IF(fuerza IS  poca) AND (angulo IS alto) then distancia IS  cercas;
+        RULE 8:IF(fuerza IS  masomenos) AND (angulo IS bajo) then distancia IS  nollego;
+        RULE 9:IF(fuerza IS  poca) AND (angulo IS alto) then distancia IS  sePaso;
+        RULE 10:IF(fuerza IS  mucha) AND (angulo IS alto) then distancia IS  sePaso;
+
+	END_RULEBLOCK
+END_FUNCTION_BLOCK
