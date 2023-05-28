@@ -2,6 +2,7 @@
 #Dependencias
 #pip install CMake
 #pip install dlib==19.22
+#pip instal opencv-python
 #pip install face_recognition
 
 import face_recognition
